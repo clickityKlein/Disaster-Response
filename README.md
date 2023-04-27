@@ -184,4 +184,9 @@ Ultimately, this project will benefit the community. In the event of a future di
 millions of communications will be sent out, and response organizations will be at their 
 full capacity. A model like this will help guide these organizations where to best use their resources. 
 
+Take a look at the **Categories per Message** image above. Messages which were not relevant to needing an
+emergency response (i.e. triggered zero of the categories) were the most prevalent. This is just from a 
+few thousand messages. Scale the data into the millions, such as providing emergency responses to an entire
+major city, and a model like this will truly save lives.
+
 [Table of Contents](#table-of-contents)
