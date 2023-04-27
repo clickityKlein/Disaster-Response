@@ -1,6 +1,6 @@
 # Disaster Response Pipeline
 The Disaster Response Pipeline classifies messages from various sources during an emergency.
-Rather than searching through various key words, a model has been trained to categorize
+Rather than searching through potentially important key words, a model has been trained to categorize
 each message.
 
 The project used the following layout:
@@ -17,7 +17,7 @@ The project used the following layout:
 - [Running the Model](#running-the-model)
 - [Results](#results)
 - [Flask Web App](#flask-web-app)
-- [Futre Considerations](#future-considerations)
+- [Future Considerations](#future-considerations)
 
 
 ## Libraries Used
@@ -57,8 +57,7 @@ Before exploring each file, here's a visual on how they're ultimately structured
 ## File Descriptions
 First off, it should be noted that the following files are strictly for creation of this README:
 - README.md
-- images/classification_report.png
-- images/directory_tree.png
+- images/...
 
 Additionally, the visual of the tree contains the file **model.pkl**. This file was omitted in
 the GitHub upload due to size issues. This is how the **.gitignore** file was used.
@@ -110,10 +109,74 @@ key metrics (precision, recall, f1-score) for how well the model performed.
 the model as pickle file (.pkl).
 - **main**: puts together the above functions into a single process.
 
+[Table of Contents](#table-of-contents)
 
 
+## Running the Model
+Assuming the aforementioned file structure was followed and the python scripts are complete,
+running the model requires a few command lines into a terminal.
+
+1. ETL:
+```
+python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db
+```
+
+2. ML:
+```
+python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
+```
+
+3. Flask:
+```
+cd app
+python run.py
+```
+
+This will result in a local Flask application being produced in a web browser.
+
+[Table of Contents](#table-of-contents)
 
 
+## Results
+The Flask app was functional, however maybe the buld of the model could've been 
+experimented with more.
+
+Here are the metrics of model perfomance:
+![Key Metrics](images/classification_report.png)
+
+[Table of Contents](#table-of-contents)
 
 
+## Flask Web App
+Included in this application are three relevant statistical images:
+1. Distribution of Message Genres
+![Messgae Genres](images/message_genres.png)
 
+2. Top 10 Categories
+![Top 10 Categories](images/top_categories.png)
+
+3. Categories per Message
+![Number of Categories](images/number_of_categories.png)
+
+Additionally, given a potential message, here's an illustration of categories being
+selected:
+![Search Result](images/search_result.png)
+
+
+[Table of Contents](#table-of-contents)
+
+
+## Future Considerations
+talk about the zeros
+- Due to time constraints and hardware limitations, a more complex modle wasn't
+tested or constructed. In the future it would be great to expand the parameter list
+while using GridSearchCV and try several different classifiers. XGBoost would be an ideal
+candidate.
+- Research for GridSearchCV also provided alternatives for GridSeachCV, itself.
+Among the list were RandomizedSearchCV and BayesSearch.
+- It should be mentioned that a significant portion of messages actually weren't sorted
+into any of the 36 categories. This may initially feel like an error to train a model using these
+type of data points, however they are actually significant in the fact they are irrelevant. If 
+a model is trained on only relevant messages, it will place a false priority on a irrelevant messages.
+
+[Table of Contents](#table-of-contents)
