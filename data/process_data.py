@@ -4,6 +4,16 @@ import numpy as np
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    INPUT:
+        - messages_filepath: filepath to the messages csv data
+        
+        - categories_filepath: filepath to the categories csv data
+    
+    OUTPUT:
+        - df: DataFrame of the two files merged
+    '''
+    
     # load
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -14,6 +24,14 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
+    '''
+    INPUT:
+        - df: DataFrame containing merged data from load_data
+        
+    OUTPUT:
+        - df: DataFrame of cleaned data
+    '''
+    
     # split categories into separate columns along the ';' marker (use expand=True)
     categories = df['categories'].str.split(pat=';', expand=True)
 
@@ -35,9 +53,12 @@ def clean_data(df):
         # convert from string to numeric
         categories[column] = categories[column].astype(int)
         
-    # issue: additional cleaning: some values in the categories aren't a 0 or 1
-    # solution: any data not a 0 or 1 becomes a 1
+    
     '''
+    Issue: additional cleaning: some values in the categories aren't a 0 or 1
+    
+    Solution: any data not a 0 or 1 becomes a 1
+    
     category_error(col) returns a column where any value not 0 or 1 is assumed
     to be a 1.
     '''
@@ -58,12 +79,26 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
+    '''
+    INPUT:
+        - df: DataFrame of cleaned data
+        
+        - database_filename: filepath of where to save the database
+        
+    OUTPUT:
+        - saves a SQLite database in desired location
+    '''
+    
     # save to a sqlite database using sqlalchemy
     engine = create_engine(f'sqlite:///{database_filename}')
     df.to_sql('DisasterResponse', engine, index=False)  
 
 
 def main():
+    '''
+    Function strings together an entire ETL pipeline
+    '''
+    
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]

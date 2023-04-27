@@ -15,6 +15,18 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 import pickle
 
 def load_data(database_filepath):
+    '''
+    INPUT:
+        - database_filepath: filepath to where SQLite database is saved
+        
+    OUTPUT:
+        - X: independent Series of data (messages)
+        
+        - y: dependent DataFrame of data (categories)
+        
+        - y.columns: Series containing the names of the categories
+    '''
+    
     # load data from database
     engine = create_engine('sqlite:///data/DisasterResponse.db')
     df = pd.read_sql_table('DisasterResponse', engine)
@@ -25,6 +37,14 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    '''
+    INPUT:
+        - text: an individual message
+        
+    OUTPUT:
+        - clean_tokens: message after the tokenization process, returned as a list
+    '''
+    
     # remove punctuation
     text = re.sub(r'[^a-zA-Z0-9]', ' ', text)
     
@@ -45,6 +65,12 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    OUTPUT:
+        - cv: GridSearchCV object containing a pipeline, parameters for the grid search,
+        and other GridSearchCV object specific parameters
+    '''
+    
     # pipeline
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -77,16 +103,45 @@ Basic build_model() function included below for testing purposes (shorter run-ti
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    INPUT:
+        - model: object resulting from the training process
+        
+        - X_test: testing split of the message data
+        
+        - Y_test: testing split of the categories data
+        
+        - category_names: column names of the categories data
+        
+    OUTPUT:
+        - classification_report: printed report of model performance across the categories,
+        scored by precision, recall and f1-score.
+    '''
+    
     Y_pred = model.predict(X_test)
     print(classification_report(Y_test, Y_pred, target_names=category_names, zero_division=1))
 
 
 def save_model(model, model_filepath):
+    '''
+    INPUT:
+        - model: object resulting from the training process
+        
+        - model_filepath: filepath of where to save the model file
+        
+    OUTPUT:
+        - saves a pickle file of the model in desired location
+    '''
+    
     with open ('model.pkl', 'wb') as f:
         pickle.dump(model, f)
 
 
 def main():
+    '''
+    Function strings together an entire ETL pipeline
+    '''
+    
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
