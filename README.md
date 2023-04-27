@@ -179,4 +179,15 @@ type of data points, however they are actually significant in the fact they are 
 a model is trained on only relevant messages, it will place a false priority on a irrelevant messages.
 - Web server deployment.
 
+A non-technical note:
+This project is ultimately for communities in the case of emergencies.
+- millions and millions of communications
+- orgs have least capacity to pull out relevant messages
+- different orgs will take care of different aspects of disaster response
+- will help to respond to future disasters
+
+Ultimately, this project will benefit the community. In the event of a future disaster,
+millions of communications will be sent out, and response organizations will be at their 
+full capacity. A model like this will help guide these organizations where to best use their resources. 
+
 [Table of Contents](#table-of-contents)
