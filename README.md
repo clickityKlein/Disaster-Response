@@ -39,7 +39,7 @@ corpuses from nltk libraries are used throughout the pipeline.
 
 ## Project Motivation
 In the midst of an emergency, such as a natural disaster, thousands of messages are
-being sent. It's important to be able to categorize these messages to optimize efforts.
+being sent. It's important to be able to categorize these messages to optimize efforts and resources.
 
 By utilizing natural language processing in a pipeline, a model was built to do just this.
 
@@ -138,7 +138,7 @@ This will result in a local Flask application being produced in a web browser.
 
 
 ## Results
-The Flask app was functional, however maybe the buld of the model could've been 
+The Flask app was functional, however maybe the build of the model could've been 
 experimented with more.
 
 Here are the metrics of model perfomance:
@@ -167,8 +167,7 @@ selected:
 
 
 ## Future Considerations
-talk about the zeros
-- Due to time constraints and hardware limitations, a more complex modle wasn't
+- Due to time constraints and hardware limitations, a more complex model wasn't
 tested or constructed. In the future it would be great to expand the parameter list
 while using GridSearchCV and try several different classifiers. XGBoost would be an ideal
 candidate.
@@ -178,5 +177,6 @@ Among the list were RandomizedSearchCV and BayesSearch.
 into any of the 36 categories. This may initially feel like an error to train a model using these
 type of data points, however they are actually significant in the fact they are irrelevant. If 
 a model is trained on only relevant messages, it will place a false priority on a irrelevant messages.
+- Web server deployment.
 
 [Table of Contents](#table-of-contents)
